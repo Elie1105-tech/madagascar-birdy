@@ -489,6 +489,16 @@ h2 {
     transform: translateY(-2px);
 }
 
+.social-links i {
+    font-size: 1.25rem; /* Taille de base pour toutes les icônes */
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1em;
+    height: 1em;
+}
+
 footer {
     background: #2d2d2d;
     color: #ccc;
