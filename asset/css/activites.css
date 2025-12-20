@@ -215,13 +215,48 @@ nav {
 
 .activity-image {
     width: 100%;
-    height: 220px;
+    height: 250px;
     background: linear-gradient(135deg, #4a6b3a 0%, #2d5016 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     color: #fff;
     font-size: 3rem;
+    overflow: hidden;
+}
+
+/* Style spécifique pour les images de voitures */
+.activity-section:last-child .activity-image {
+    height: 280px; /* Hauteur légèrement augmentée pour les voitures */
+}
+
+.activity-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.3s ease;
+}
+
+/* Ajustement spécifique pour les images de voitures */
+.activity-section:last-child .activity-image img {
+    object-fit: cover; /* Affiche l'image entière sans rognage */
+    padding: 10px; /* Ajoute un peu d'espace autour de l'image */
+    background-color: #f5f5f5; /* Fond clair pour les images de voitures */
+}
+
+/* Style pour les grands véhicules comme le 4x4 */
+.large-vehicle {
+    height: 350px !important; /* Hauteur augmentée pour le 4x4 */
+}
+
+.large-vehicle img {
+    object-fit: contain; /* Assure que toute l'image est visible */
+    max-height: 100%; /* Empêche l'image de dépasser de son conteneur */
+}
+
+.activity-card:hover .activity-image img {
+    transform: scale(1.05);
 }
 
 .activity-content {
