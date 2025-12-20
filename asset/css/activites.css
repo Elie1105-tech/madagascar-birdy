@@ -145,28 +145,35 @@ nav {
 }
 
 .page-header {
-    background: linear-gradient(135deg, #2d5016 0%, #4a6b3a 100%);
-    color: #fff;
-    padding: 4rem 2rem 3rem;
+    position: relative;
     text-align: center;
+    padding: 10rem 2rem;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                url('../images/wildlife expedition.jpeg') center 30%/cover no-repeat;
+    margin-bottom: 3rem;
 }
 
 .page-header h1 {
-    font-family: var(--font-heading);
+    position: relative;
+    z-index: 2;
     font-size: 3rem;
-    font-weight: 700;
     margin-bottom: 1rem;
-    line-height: 1.2;
+    font-family: var(--font-heading);
 }
 
 .page-header p {
-    font-family: var(--font-primary);
-    font-size: 1.2rem;
-    line-height: 1.8;
-    opacity: 0.9;
+    position: relative;
+    z-index: 2;
+    font-size: 1.25rem;
     max-width: 800px;
     margin: 0 auto;
-    font-weight: 400;
+    opacity: 0.9;
 }
 
 .activities-container {
@@ -452,13 +459,20 @@ footer p {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    aspect-ratio: 1/1; /* Rend le conteneur carré */
+    position: relative;
 }
 
 .booking-image img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover; /* Couvre la zone sans déformer l'image */
     display: block;
     transition: transform 0.5s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .booking-image:hover img {
@@ -477,7 +491,7 @@ footer p {
     }
     
     .booking-image {
-        max-width: 500px;
+        max-width: 400px;
         margin: 0 auto;
     }
     

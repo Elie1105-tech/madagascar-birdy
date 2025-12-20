@@ -307,10 +307,14 @@ nav {
 }
 
 .hero {
-    background: linear-gradient(rgba(45,80,22,0.15), rgba(45,80,22,0.15)), 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%234a6b3a" width="1200" height="600"/></svg>');
+    position: relative;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                url('../images/fond.jpeg');
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
+    -webkit-backdrop-filter: brightness(1.1) contrast(1.1);
+    backdrop-filter: brightness(1.1) contrast(1.1);
     min-height: 65vh;
     display: flex;
     align-items: center;
@@ -327,8 +331,21 @@ nav {
     transform: translateX(-50%);
 }
 
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
 .hero-content {
-    max-width: 2000px;
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
     color: #fff;
 }
 
@@ -338,6 +355,8 @@ nav {
     line-height: 1.2;
     margin-bottom: 1.5rem;
     letter-spacing: -0.5px;
+    color: var(--color-light);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .hero p {
