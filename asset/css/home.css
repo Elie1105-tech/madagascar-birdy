@@ -529,11 +529,31 @@ footer p {
     font-size: 0.9rem;
 }
 
+/* Logo text styles */
+.logo-text {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    transition: var(--transition);
+    font-family: var(--font-subheading);
+}
+
+/* Media Queries for responsive logo text */
+@media (max-width: 1024px) {
+    .logo-text {
+        font-size: 1.1rem;
+    }
+}
+
 @media (max-width: 768px) {
     .hamburger {
         display: flex;
     }
-
+    
+    .logo-text {
+        font-size: 1rem;
+    }
+    
     .nav-links {
         position: absolute;
         top: 100%;
@@ -579,5 +599,11 @@ footer p {
 
     h2 {
         font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-text {
+        font-size: 0.9rem;
     }
 }
