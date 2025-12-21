@@ -220,6 +220,11 @@ header {
     position: sticky;
     top: 0;
     z-index: 100;
+    transition: box-shadow 0.3s ease;
+}
+
+header.scrolled {
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
 }
 
 nav {
@@ -531,75 +536,76 @@ footer p {
 
 /* Logo text styles */
 .logo-text {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--color-primary);
-    transition: var(--transition);
-    font-family: var(--font-subheading);
+font-size: 1.25rem;
+font-weight: 600;
+color: var(--color-primary);
+transition: var(--transition);
+font-family: var(--font-subheading);
 }
 
 /* Media Queries for responsive logo text */
 @media (max-width: 1024px) {
-    .logo-text {
-        font-size: 1.1rem;
-    }
+.logo-text {
+font-size: 1.1rem;
+}
 }
 
 @media (max-width: 768px) {
-    .hamburger {
-        display: flex;
-    }
-    
-    .logo-text {
-        font-size: 1rem;
-    }
-    
-    .nav-links {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: #fff;
-        flex-direction: column;
-        gap: 0;
-        padding: 1rem 0;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        transform: translateY(-100%);
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s;
-    }
-
-    .nav-links.active {
-        transform: translateY(0);
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .nav-links li {
-        padding: 0.8rem 2rem;
-    }
-
-    .hero h1 {
-        font-size: 2rem;
-    }
-
-    .hero p {
-        font-size: 1rem;
-    }
-
-    .about-content {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-    }
-
-    section {
-        padding: 3rem 1.5rem;
-    }
-
-    h2 {
-        font-size: 1.8rem;
-    }
+.hamburger {
+display: flex;
+}
+.nav-links {
+position: absolute;
+top: 100%;
+left: 0;
+right: 0;
+background: #fff;
+flex-direction: column;
+gap: 0;
+padding: 1rem 0;
+box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+transform: translateY(-100%);
+opacity: 0;
+visibility: hidden;
+transition: all 0.3s ease;
+max-height: 0;
+overflow: hidden;
+}
+.nav-links.active {
+transform: translateY(0);
+opacity: 1;
+visibility: visible;
+max-height: 300px;
+}
+.nav-links li {
+padding: 0.8rem 2rem;
+opacity: 0;
+transform: translateX(-20px);
+transition: all 0.3s ease;
+}
+.nav-links.active li {
+opacity: 1;
+transform: translateX(0);
+}
+.nav-links.active li:nth-child(1) { transition-delay: 0.1s; }
+.nav-links.active li:nth-child(2) { transition-delay: 0.2s; }
+.nav-links.active li:nth-child(3) { transition-delay: 0.3s; }
+.hero h1 {
+font-size: 2rem;
+}
+.hero p {
+font-size: 1rem;
+}
+.about-content {
+grid-template-columns: 1fr;
+gap: 2.5rem;
+}
+section {
+padding: 3rem 1.5rem;
+}
+h2 {
+font-size: 1.8rem;
+}
 }
 
 @media (max-width: 480px) {

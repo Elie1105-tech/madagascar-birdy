@@ -33,6 +33,11 @@ header {
     position: sticky;
     top: 0;
     z-index: 100;
+    transition: box-shadow 0.3s ease;
+}
+
+header.scrolled {
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
 }
 
 nav {
@@ -203,6 +208,18 @@ nav {
 
 .activity-section {
     margin-bottom: 5rem;
+    position: relative;
+}
+
+.activity-section:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    bottom: -2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--color-secondary), transparent);
 }
 
 .activity-section:last-child {
@@ -382,18 +399,33 @@ footer p {
         transform: translateY(-100%);
         opacity: 0;
         visibility: hidden;
-        transition: all 0.3s;
+        transition: all 0.3s ease;
+        max-height: 0;
+        overflow: hidden;
     }
 
     .nav-links.active {
         transform: translateY(0);
         opacity: 1;
         visibility: visible;
+        max-height: 300px;
     }
 
     .nav-links li {
         padding: 0.8rem 2rem;
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: all 0.3s ease;
     }
+
+    .nav-links.active li {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .nav-links.active li:nth-child(1) { transition-delay: 0.1s; }
+    .nav-links.active li:nth-child(2) { transition-delay: 0.2s; }
+    .nav-links.active li:nth-child(3) { transition-delay: 0.3s; }
 
     .page-header h1 {
         font-size: 2rem;
