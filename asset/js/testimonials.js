@@ -1,13 +1,40 @@
 $(document).ready(function() {
     // Configuration
     const config = {
-        apiUrl: './api/testimonials.php',
+        // Utiliser une URL absolue pour la production, relative pour le développement local
+        apiUrl: window.location.hostname === 'elie1105-tech.github.io' 
+            ? 'https://votre-domaine.com/api/testimonials.php'  // Remplacez par votre URL d'API en production
+            : './api/testimonials.php',
         testimonialsContainer: $('.testimonials-container'),
         testimonialForm: $('#testimonialForm'),
         loadingClass: 'loading',
         errorClass: 'error-message',
         successClass: 'success-message',
-        currentSlide: 0
+        currentSlide: 0,
+        // Données de démo pour le développement
+        demoData: [
+            {
+                name: 'John Doe',
+                rating: 5,
+                comment: 'Amazing birdwatching experience! The guides were very knowledgeable.',
+                location: 'New York, USA',
+                created_at: '2023-12-20T10:00:00Z'
+            },
+            {
+                name: 'Jane Smith',
+                rating: 4,
+                comment: 'Beautiful scenery and incredible bird species. Highly recommended!',
+                location: 'London, UK',
+                created_at: '2023-12-18T15:30:00Z'
+            },
+            {
+                name: 'Carlos M.',
+                rating: 5,
+                comment: 'Once in a lifetime experience with endemic species you can\'t see anywhere else.',
+                location: 'Madrid, Spain',
+                created_at: '2023-12-15T09:15:00Z'
+            }
+        ]
     };
 
     // Gestion des boutons de navigation du carrousel
@@ -173,27 +200,52 @@ $(document).ready(function() {
         const $container = $('.testimonials-container');
         $container.addClass(config.loadingClass);
         
+        // Si nous sommes sur GitHub Pages et que nous n'avons pas d'URL d'API valide
+        if (window.location.hostname === 'elie1105-tech.github.io' && config.apiUrl.includes('votre-domaine.com')) {
+            console.log('Using demo data for GitHub Pages');
+            // Utiliser les données de démo après un court délai pour simuler une requête réseau
+            setTimeout(() => {
+                renderTestimonials(config.demoData);
+                $container.removeClass(config.loadingClass);
+            }, 500);
+            return;
+        }
+        
+        // Essayer de charger depuis l'API
         $.ajax({
             url: config.apiUrl,
             type: 'GET',
             dataType: 'json',
             success: function(response) {
                 console.log('API response:', response);
-                if (response.success && response.data && response.data.length > 0) {
+                if (response && response.success && response.data && response.data.length > 0) {
                     console.log('Number of testimonials received:', response.data.length);
                     renderTestimonials(response.data);
+                } else if (response && response.error) {
+                    console.error('API Error:', response.error);
+                    useDemoData($container, 'No testimonials available from the server. Showing demo data.');
                 } else {
-                    console.log('No testimonials found in the response');
-                    $container.prepend('<div class="no-testimonials">No testimonials yet. Be the first to leave a review!</div>');
+                    console.log('No valid testimonials in the response, using demo data');
+                    useDemoData($container, 'No testimonials available. Showing demo data.');
                 }
             },
-            error: function() {
-                showError('An error occurred while loading testimonials.');
+            error: function(xhr, status, error) {
+                console.error('AJAX Error:', status, error);
+                useDemoData($container, 'Could not load testimonials. Showing demo data.');
             },
             complete: function() {
                 $container.removeClass(config.loadingClass);
             }
         });
+    }
+    
+    function useDemoData($container, message) {
+        console.log(message);
+        if (config.demoData && config.demoData.length > 0) {
+            renderTestimonials(config.demoData);
+        } else {
+            $container.prepend('<div class="no-testimonials">No testimonials available at the moment.</div>');
+        }
     }
 
     function renderTestimonials(testimonials) {
@@ -201,7 +253,7 @@ $(document).ready(function() {
         $container.find('.testimonial:not(.testimonial-nav, .add-testimonial-btn)').remove();
         
         if (testimonials.length === 0) {
-            $container.prepend('<div class="no-testimonials">Aucun témoignage pour le moment. Soyez le premier à laisser un avis !</div>');
+            $container.prepend('<div class="no-testimonials">No testimonials yet. Be the first to leave a review!</div>');
             return;
         }
         
