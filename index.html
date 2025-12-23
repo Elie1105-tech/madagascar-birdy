@@ -24,7 +24,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&family=Open+Sans:wght@300;400;500;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="./asset/css/aos.css">
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="./asset/css/home.css">
     <link rel="stylesheet" href="./asset/fontawesome/css/all.css">
 </head>
@@ -202,7 +203,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- AOS JS -->
-    <script src="./asset/js/aos.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <!-- Notre script principal -->
     <script src="./asset/js/testimonials.js"></script>
@@ -215,8 +216,18 @@
                 easing: 'ease-in-out',
                 once: false,
                 mirror: true,
-                disable: window.innerWidth < 768
+                disable: function() {
+                    var maxWidth = 768;
+                    return window.innerWidth < maxWidth;
+                },
+                startEvent: 'DOMContentLoaded',
+                offset: 10,
+                delay: 0,
+                anchorPlacement: 'top-bottom'
             });
+            
+            // Rafraîchir AOS après le chargement des images
+            window.addEventListener('load', AOS.refresh);
 
             // Menu mobile
             const hamburger = document.querySelector('.hamburger');
