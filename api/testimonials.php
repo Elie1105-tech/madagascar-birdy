@@ -1,7 +1,11 @@
 <?php
-// Activer l'affichage des erreurs pour le débogage
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+// Désactiver l'affichage des erreurs en production
+ini_set('display_errors', 0);
+error_reporting(0);
+
+// Journalisation des erreurs (à configurer selon l'environnement)
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/../logs/php_errors.log');
 
 // En-têtes CORS
 if (isset($_SERVER['HTTP_ORIGIN'])) {

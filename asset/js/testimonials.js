@@ -154,6 +154,10 @@ $(document).ready(function() {
                     showSuccess('Your testimonial has been submitted successfully! It will be published after moderation.');
                     $form[0].reset();
                     loadTestimonials();
+                    setTimeout(() => {
+                        $('#testimonialModal').removeClass('show');
+                        $('body').removeClass('modal-open');
+                    }, 500);
                 } else {
                     showError(response.message || 'An error occurred while submitting the testimonial.');
                 }
@@ -202,11 +206,9 @@ $(document).ready(function() {
         
         // Si nous sommes sur GitHub Pages et que nous n'avons pas d'URL d'API valide
         if (window.location.hostname === 'elie1105-tech.github.io' && config.apiUrl.includes('votre-domaine.com')) {
-            console.log('Using demo data for GitHub Pages');
             // Utiliser les données de démo après un court délai pour simuler une requête réseau
             setTimeout(() => {
                 renderTestimonials(config.demoData);
-                $container.removeClass(config.loadingClass);
             }, 500);
             return;
         }
@@ -217,20 +219,20 @@ $(document).ready(function() {
             type: 'GET',
             dataType: 'json',
             success: function(response) {
-                console.log('API response:', response);
-                if (response && response.success && response.data && response.data.length > 0) {
-                    console.log('Number of testimonials received:', response.data.length);
-                    renderTestimonials(response.data);
-                } else if (response && response.error) {
-                    console.error('API Error:', response.error);
-                    useDemoData($container, 'No testimonials available from the server. Showing demo data.');
-                } else {
-                    console.log('No valid testimonials in the response, using demo data');
-                    useDemoData($container, 'No testimonials available. Showing demo data.');
+                try {
+                    if (response && response.success && response.data && response.data.length > 0) {
+                        renderTestimonials(response.data);
+                    } else if (response && response.error) {
+                        useDemoData($container, 'No testimonials available from the server. Showing demo data.');
+                    } else {
+                        useDemoData($container, 'No testimonials available. Showing demo data.');
+                    }
+                } catch (error) {
+                    // En cas d'erreur, utiliser les données de démo
+                    useDemoData($container, 'Error loading testimonials. Showing demo data.');
                 }
             },
             error: function(xhr, status, error) {
-                console.error('AJAX Error:', status, error);
                 useDemoData($container, 'Could not load testimonials. Showing demo data.');
             },
             complete: function() {
@@ -240,7 +242,7 @@ $(document).ready(function() {
     }
     
     function useDemoData($container, message) {
-        console.log(message);
+        // Ne pas afficher le message dans la console en production
         if (config.demoData && config.demoData.length > 0) {
             renderTestimonials(config.demoData);
         } else {
@@ -328,25 +330,37 @@ $(document).ready(function() {
     }
 
     function showError(message) {
-        const $errorDiv = $('<div class="' + config.errorClass + '">' + message + '</div>');
-        $('body').append($errorDiv);
-        
-        setTimeout(() => {
-            $errorDiv.fadeOut(300, function() {
-                $(this).remove();
-            });
-        }, 5000);
+        try {
+            // Afficher un message d'erreur à l'utilisateur
+            const $errorDiv = $('<div class="error-message"></div>').text(message);
+            $('.testimonial-form').prepend($errorDiv);
+            
+            // Supprimer le message après 5 secondes
+            setTimeout(() => {
+                $errorDiv.fadeOut(500, function() {
+                    $(this).remove();
+                });
+            }, 5000);
+        } catch (e) {
+            // Ne rien faire en cas d'erreur pour éviter les boucles d'erreur
+        }
     }
 
     function showSuccess(message) {
-        const $successDiv = $('<div class="' + config.successClass + '">' + message + '</div>');
-        $('body').append($successDiv);
-        
-        setTimeout(() => {
-            $successDiv.fadeOut(300, function() {
-                $(this).remove();
-            });
-        }, 5000);
+        try {
+            // Afficher un message de succès à l'utilisateur
+            const $successDiv = $('<div class="success-message"></div>').text(message);
+            $('.testimonial-form').prepend($successDiv);
+            
+            // Supprimer le message après 5 secondes
+            setTimeout(() => {
+                $successDiv.fadeOut(500, function() {
+                    $(this).remove();
+                });
+            }, 5000);
+        } catch (e) {
+            // Ne rien faire en cas d'erreur pour éviter les boucles d'erreur
+        }
     }
 
     function isValidEmail(email) {

@@ -551,6 +551,89 @@ footer p {
     font-size: 0.9rem;
 }
 
+/* Styles pour la section de localisation */
+.location-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+.location-content h2 {
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+}
+
+.location-content p {
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+}
+
+.address {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 2rem auto;
+    display: inline-block;
+    max-width: 90%;
+}
+
+.address p {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.address strong {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+/* Styles pour l'iframe de la carte */
+.location-content iframe {
+    width: 100%;
+    max-width: 1000px;
+    height: 450px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 1.5rem auto;
+    display: block;
+}
+
+/* Bouton Google Maps pour mobile */
+.mobile-map-button {
+    display: none; /* Caché par défaut */
+    background-color: var(--color-primary);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    margin: 1rem auto;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    max-width: 80%;
+}
+
+.mobile-map-button:hover {
+    background-color: #3a6b1d;
+    color: white;
+}
+
+/* Afficher le bouton uniquement sur mobile */
+@media (max-width: 768px) {
+    .mobile-map-button {
+        display: block;
+    }
+    
+    /* Cacher l'iframe sur mobile */
+    .location-content iframe {
+        display: none;
+    }
+}
+
 /* Logo text styles */
 .logo-text {
 font-size: 1.25rem;
