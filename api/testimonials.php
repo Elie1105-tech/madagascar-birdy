@@ -103,8 +103,8 @@ try {
             
             // Préparation de la requête d'insertion
             $stmt = $conn->prepare("INSERT INTO testimonials 
-                                  (name, email, location, rating, comment, status) 
-                                  VALUES (?, ?, ?, ?, ?, 'pending')");
+                                  (name, email, location, rating, comment) 
+                                  VALUES (?, ?, ?, ?, ?)");
             
             $stmt->bind_param('sssis', $name, $email, $location, $rating, $comment);
             
