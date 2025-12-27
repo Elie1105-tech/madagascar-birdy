@@ -3,7 +3,7 @@ $(document).ready(function() {
     const config = {
         // Utiliser une URL absolue pour la production, relative pour le développement local
         apiUrl: window.location.hostname === 'elie1105-tech.github.io' 
-            ? 'https://madagascar_birdy.com/api/testimonials.php'
+            ? 'https://madagascarbirdy.com/api/testimonials.php'
             : './api/testimonials.php',
         testimonialsContainer: $('.testimonials-container'),
         testimonialForm: $('#testimonialForm'),
