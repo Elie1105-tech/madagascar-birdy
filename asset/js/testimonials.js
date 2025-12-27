@@ -3,7 +3,7 @@ $(document).ready(function() {
     const config = {
         // Utiliser une URL absolue pour la production, relative pour le développement local
         apiUrl: window.location.hostname === 'elie1105-tech.github.io' 
-            ? 'https://votre-domaine.com/api/testimonials.php'  // Remplacez par votre URL d'API en production
+            ? 'https://madagascar_birdy.com/api/testimonials.php'
             : './api/testimonials.php',
         testimonialsContainer: $('.testimonials-container'),
         testimonialForm: $('#testimonialForm'),
@@ -205,7 +205,7 @@ $(document).ready(function() {
         $container.addClass(config.loadingClass);
         
         // Si nous sommes sur GitHub Pages et que nous n'avons pas d'URL d'API valide
-        if (window.location.hostname === 'elie1105-tech.github.io' && config.apiUrl.includes('votre-domaine.com')) {
+        if (window.location.hostname === 'elie1105-tech.github.io' && config.apiUrl.includes('madagascar-birdy.com')) {
             // Utiliser les données de démo après un court délai pour simuler une requête réseau
             setTimeout(() => {
                 renderTestimonials(config.demoData);
